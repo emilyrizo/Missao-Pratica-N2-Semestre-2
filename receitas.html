@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <title>Catálogo de Receitas</title>
+</head>
+
+<body onload="preencheCatalogo()" style="background-color: #fff8f2;">
+  <div class="container-fluid">
+    <header class="p-3">
+      <h1 class="text-center">Catálogo de Receitas</h1>
+    </header>
+    <section class="d-flex justify-content-center">
+      <div id="pnlCatalogo" style="width: 90%;" class="d-flex flex-wrap justify-content-around"></div>
+    </section>
+  </div>
+
+  <script>
+    const receitas = [
+      {
+        titulo: 'Abobrinha Recheada',
+        imagem: './imagens/abobrinha.png',
+        ingredientes: [
+          '200 gramas de carne moída',
+          '1 abobrinha grande crua',
+          '2 dentes de alho',
+          '100 gramas de molho de tomate',
+          '50 gramas de queijo mussarela light ralado',
+          'Azeite de oliva',
+          'Cebolinha verde picada',
+          'Sal a gosto'
+        ],
+        preparo: 'Pré aqueça o forno em temperatura média de 180ºC. Corte a abobrinha, retire a polpa, refogue a carne com os temperos, recheie a abobrinha e leve ao forno por 30 minutos.'
+      },
+      {
+        titulo: 'Macarrão ao Forno',
+        imagem: './imagens/macarrao-bacon.png',
+        ingredientes: [
+          '500 g de macarrão caracolinho',
+          '3 tomates sem sementes',
+          '300 g de bacon',
+          '1 cebola picada',
+          '2 dentes de alho picados',
+          '3 colheres de maionese',
+          '50 g de queijo ralado',
+          '350 g de mussarela ralada',
+          '2 colheres de azeite',
+          'Salsinha a gosto'
+        ],
+        preparo: 'Frite o bacon, acrescente os outros ingredientes e misture com o macarrão. Coloque queijo ralado por cima e leve ao forno para gratinar.'
+      },
+      {
+        titulo: 'Gratinado de Frango',
+        imagem: './imagens/frango-gratinado.png',
+        ingredientes: [
+          '1 kg de peito de frango desfiado',
+          '1 colher de farinha de trigo',
+          '2 dentes de alho picados',
+          '1 cebola picada',
+          '2 colheres de azeite',
+          'Queijo ralado',
+          '1 lata de molho de tomate',
+          '1 xícara de água',
+          '1 lata de creme de leite',
+          '100 g de manteiga derretida'
+        ],
+        preparo: 'Refogue o alho e a cebola, acrescente o frango e o molho, e cozinhe. Misture o creme de leite, coloque numa travessa, adicione queijo ralado e leve ao forno.'
+      }
+    ];
+
+    function getListaIngredientes(receita) {
+      return receita.ingredientes.map(ingrediente => `<li>${ingrediente}</li>`).reduce((acc, item) => acc + item, '<ul>') + '</ul>';
+    }
+
+    function getCard(receita) {
+      return `
+        <div class="card m-3" style="width: 350px;">
+          <img src="${receita.imagem}" class="card-img-top" alt="${receita.titulo}">
+          <div class="card-body">
+            <h5 class="card-title">${receita.titulo}</h5>
+            <div class="card-text">
+              ${getListaIngredientes(receita)}
+              <hr>
+              <p>${receita.preparo}</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function preencheCatalogo() {
+      const catalogo = document.getElementById('pnlCatalogo');
+      catalogo.innerHTML = receitas.map(receita => getCard(receita)).reduce((acc, card) => acc + card, '');
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
